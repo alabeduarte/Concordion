@@ -54,26 +54,19 @@ public class VerifyRowsUnorderedCommand extends AbstractCommand {
 
         announceExpressionEvaluated(commandCall.getElement());
         
-        int index = 0;
-        for (Object loopVar : iterable) {
-            evaluator.setVariable(loopVariableName, loopVar);
-            Row detailRow;
-            if (detailRows.length > index) {
-                detailRow = detailRows[index];
-            } else {
-                detailRow = tableSupport.addDetailRow();
-                announceSurplusRow(detailRow.getElement());
-            }
-            tableSupport.copyCommandCallsTo(detailRow);
-            commandCall.getChildren().verify(evaluator, resultRecorder);
-            index++;
-        }
+//		TODO
+//		pseudo code showing how i want to implement this.
+//       
+//        for (Object loopVar : iterable) {
+//        	for (cell : detailRow) {
+//        		if (loopVar matches cell){
+//        			report match
+//        		}
+//        	}
+//        }
+//        
+//        report any missing or surplus results.
         
-        for (; index < detailRows.length; index++) {
-            Row detailRow = detailRows[index];
-            resultRecorder.record(Result.FAILURE);
-            announceMissingRow(detailRow.getElement());
-        }
     }
     
     private void announceExpressionEvaluated(Element element) {
