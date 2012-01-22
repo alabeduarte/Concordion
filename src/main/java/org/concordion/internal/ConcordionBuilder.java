@@ -99,6 +99,7 @@ public class ConcordionBuilder implements ConcordionExtender {
         withApprovedCommand(NAMESPACE_CONCORDION_2007, "assertTrue", assertTrueCommand);
         withApprovedCommand(NAMESPACE_CONCORDION_2007, "assertFalse", assertFalseCommand);
         withApprovedCommand(NAMESPACE_CONCORDION_2007, "verifyRows", verifyRowsCommand);
+        withApprovedCommand(NAMESPACE_CONCORDION_2007, "verifyRowsUnordered", verifyRowsCommand);
         withApprovedCommand(NAMESPACE_CONCORDION_2007, "echo", echoCommand);
         
         AssertResultRenderer assertRenderer = new AssertResultRenderer();
