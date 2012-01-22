@@ -42,6 +42,7 @@ import org.concordion.internal.command.SpecificationCommand;
 import org.concordion.internal.command.ThrowableCatchingDecorator;
 import org.concordion.internal.command.ThrowableCaughtPublisher;
 import org.concordion.internal.command.VerifyRowsCommand;
+import org.concordion.internal.command.VerifyRowsUnorderedCommand;
 import org.concordion.internal.listener.AssertResultRenderer;
 import org.concordion.internal.listener.BreadcrumbRenderer;
 import org.concordion.internal.listener.DocumentStructureImprover;
@@ -82,6 +83,7 @@ public class ConcordionBuilder implements ConcordionExtender {
     private ExecuteCommand executeCommand = new ExecuteCommand();
     private RunCommand runCommand = new RunCommand();
     private VerifyRowsCommand verifyRowsCommand = new VerifyRowsCommand();
+    private VerifyRowsUnorderedCommand verifyRowsUnorderedCommand = new VerifyRowsUnorderedCommand();
     private EchoCommand echoCommand = new EchoCommand();
     private File baseOutputDir;
     private ThrowableCaughtPublisher throwableListenerPublisher = new ThrowableCaughtPublisher();
@@ -99,7 +101,7 @@ public class ConcordionBuilder implements ConcordionExtender {
         withApprovedCommand(NAMESPACE_CONCORDION_2007, "assertTrue", assertTrueCommand);
         withApprovedCommand(NAMESPACE_CONCORDION_2007, "assertFalse", assertFalseCommand);
         withApprovedCommand(NAMESPACE_CONCORDION_2007, "verifyRows", verifyRowsCommand);
-        withApprovedCommand(NAMESPACE_CONCORDION_2007, "verifyRowsUnordered", verifyRowsCommand);
+        withApprovedCommand(NAMESPACE_CONCORDION_2007, "verifyRowsUnordered", verifyRowsUnorderedCommand);
         withApprovedCommand(NAMESPACE_CONCORDION_2007, "echo", echoCommand);
         
         AssertResultRenderer assertRenderer = new AssertResultRenderer();
