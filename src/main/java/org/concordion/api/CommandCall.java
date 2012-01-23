@@ -32,6 +32,10 @@ public class CommandCall {
     public void verify(Evaluator evaluator, ResultRecorder resultRecorder) {
         command.verify(this, evaluator, resultRecorder);
     }
+    
+    public boolean resultPeak(Evaluator evaluator) {
+        return command.resultPeak(this, evaluator);
+    }
 
     public void appendChild(CommandCall commandNode) {
         children.append(commandNode);

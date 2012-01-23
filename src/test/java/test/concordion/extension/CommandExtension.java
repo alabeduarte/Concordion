@@ -30,6 +30,12 @@ public class CommandExtension implements ConcordionExtension {
             public void execute(CommandCall commandCall, Evaluator evaluator, ResultRecorder resultRecorder) {
                 stream.println(commandCall.getElement().getText());
             }
+
+			public boolean resultPeak(CommandCall commandCall,
+					Evaluator evaluator) {
+				// TODO Auto-generated method stub
+				return false;
+			}
         });
     }
 }

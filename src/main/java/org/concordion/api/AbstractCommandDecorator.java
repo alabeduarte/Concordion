@@ -32,6 +32,17 @@ public abstract class AbstractCommandDecorator implements Command {
             }
         });
     }
+    
+    public boolean resultPeak(final CommandCall commandCall, final Evaluator evaluator) {
+    	final boolean res[] = {false};
+        process(commandCall, evaluator, new Runnable() {
+            public void run() {
+            	res[0] = command.resultPeak(commandCall, evaluator);
+            }
+        });
+        return res[0];
+    }
 
-    protected abstract void process(CommandCall commandCall, Evaluator evaluator, ResultRecorder resultRecorder, Runnable runnable);
+	protected abstract void process(CommandCall commandCall, Evaluator evaluator, ResultRecorder resultRecorder, Runnable runnable);
+	protected abstract void process(CommandCall commandCall, Evaluator evaluator, Runnable runnable);
 }

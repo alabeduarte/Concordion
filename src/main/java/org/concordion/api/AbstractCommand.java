@@ -11,4 +11,9 @@ public abstract class AbstractCommand implements Command {
 
     public void verify(CommandCall commandCall, Evaluator evaluator, ResultRecorder resultRecorder) {
     }
+    
+	public boolean resultPeak(CommandCall commandCall, Evaluator evaluator) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

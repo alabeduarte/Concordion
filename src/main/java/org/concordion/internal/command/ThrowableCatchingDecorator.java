@@ -40,4 +40,13 @@ public class ThrowableCatchingDecorator extends AbstractCommandDecorator {
             announceThrowableCaught(commandCall.getElement(), t, commandCall.getExpression());
         }        
     }
+    
+    @Override
+    protected void process(CommandCall commandCall, Evaluator evaluator, Runnable runnable) {
+        try {
+            runnable.run();
+        } catch (Throwable t) {
+            announceThrowableCaught(commandCall.getElement(), t, commandCall.getExpression());
+        }
+    }
 }

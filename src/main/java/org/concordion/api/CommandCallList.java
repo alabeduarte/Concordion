@@ -23,6 +23,15 @@ public class CommandCallList {
     public void verify(Evaluator evaluator, ResultRecorder resultRecorder) {
         for(CommandCall call : commandCalls) call.verify(evaluator, resultRecorder);
     }
+    
+    public boolean resultPeak(Evaluator evaluator) {
+        for(CommandCall call : commandCalls){
+        	if (call.resultPeak(evaluator) == false){
+        		return false;
+        	}
+        }
+        return true;
+    }
 
     public void processSequentially(Evaluator evaluator, ResultRecorder resultRecorder) {
         for(CommandCall call : commandCalls) {

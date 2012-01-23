@@ -54,6 +54,22 @@ public class AssertEqualsCommand extends AbstractCommand {
         }
     }
     
+    @Override
+    public boolean resultPeak(CommandCall commandCall, Evaluator evaluator) {
+        Check.isFalse(commandCall.hasChildCommands(), "Nesting commands inside an 'assertEquals' is not supported");
+        
+        Element element = commandCall.getElement();
+        
+        Object actual = evaluator.evaluate(commandCall.getExpression());
+        String expected = element.getText();
+        
+        if (comparator.compare(actual, expected) == 0) {
+        	return true;
+        } else {
+        	return false;
+        }
+    }
+    
     private void announceSuccess(Element element) {
         listeners.announce().successReported(new AssertSuccessEvent(element));
     }
@@ -61,4 +77,6 @@ public class AssertEqualsCommand extends AbstractCommand {
     private void announceFailure(Element element, String expected, Object actual) {
         listeners.announce().failureReported(new AssertFailureEvent(element, expected, actual));
     }
+
+	
 }

@@ -40,4 +40,21 @@ public class LocalTextDecorator extends AbstractCommandDecorator {
         }
         return href;
     }
+
+
+	@Override
+	protected void process(CommandCall commandCall, Evaluator evaluator,
+			Runnable runnable) {
+		//TODO remove duplicate code.
+		Object savedTextValue = evaluator.getVariable(TEXT_VARIABLE);
+        Object savedHrefValue = evaluator.getVariable(HREF_VARIABLE);
+        try {
+            evaluator.setVariable(TEXT_VARIABLE, commandCall.getElement().getText());
+            evaluator.setVariable(HREF_VARIABLE, getHref(commandCall.getElement()));
+            runnable.run();
+        } finally {
+            evaluator.setVariable(TEXT_VARIABLE, savedTextValue);
+            evaluator.setVariable(HREF_VARIABLE, savedHrefValue);
+        }
+	}
 }
