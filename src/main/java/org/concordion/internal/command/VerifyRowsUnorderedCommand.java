@@ -43,7 +43,7 @@ public class VerifyRowsUnorderedCommand extends AbstractCommand {
         if (!matcher.matches()) {
             throw new RuntimeException("The expression for a \"verifyRows\" should be of the form: #var : collectionExpr");
         }
-        String loopVariableName = matcher.group(1);
+        String loopVariableName = matcher.group(1); // what is this
         String iterableExpression = matcher.group(2);
 
         Object obj = evaluator.evaluate(iterableExpression);
@@ -68,32 +68,40 @@ public class VerifyRowsUnorderedCommand extends AbstractCommand {
 //        for (Object loopVar : iterable) {
 //        	for (cell : detailRow) {
 //        		if (loopVar matches cell){
-//        			report match
+//        			report match from list and detailList
 //        		}
 //        	}
 //        }
 //        
-//        report any missing or surplus results.
-
-        Object tVar = list.get(0);
-        evaluator.setVariable(loopVariableName, tVar);
-        tableSupport.copyCommandCallsTo(detailRows[0]);
-        System.out.println(commandCall.getChildren().resultPeak(evaluator));
+//      report any missing or surplus results.
+//		missing will be in list. surplus will be in detailRow.
         
-        int index = 0;
+        
+        // showing how to get one result without reporting.
+//        Object tVar = list.get(0);
+//        evaluator.setVariable(loopVariableName, tVar);
+//        tableSupport.copyCommandCallsTo(detailRows[0]);
+//        System.out.println(commandCall.getChildren().resultPeak(evaluator));
+        
+        
         for (Object loopVar : iterable) {
-            evaluator.setVariable(loopVariableName, loopVar);
-            Row detailRow;
-            if (detailRows.length > index) {
-                detailRow = detailRows[index];
-            } else {
-                detailRow = tableSupport.addDetailRow();
-                announceSurplusRow(detailRow.getElement());
-            }
-            tableSupport.copyCommandCallsTo(detailRow);
-            commandCall.getChildren().verify(evaluator, resultRecorder);
-            index++;
+        	for (Row row : detailList){
+        		evaluator.setVariable(loopVariableName, loopVar);
+        		tableSupport.copyCommandCallsTo(row);
+        		if (commandCall.getChildren().resultPeak(evaluator)){
+        			list.remove(loopVar);
+        			detailList.remove(row);
+        			break;
+        		}
+        	}
         }
+        
+        System.out.println(list);
+        System.out.println(detailList);
+//		TODO
+//      report any missing or surplus results.
+//		missing will be in list. surplus will be in detailRow.        
+
     }
     
     private void announceExpressionEvaluated(Element element) {
